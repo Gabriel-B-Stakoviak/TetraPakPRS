@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}REGISTRAR FECHAMENTO{% endblock title %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card shadow-lg p-4 rounded-3">
+            <h4 class="mb-3">Fechamento de Turno</h4>
+
+            <p><strong>Início:</strong> {{horario}}</p>
+            <p><strong>Data:</strong> {{data}}</p>
+
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="re" class="form-label">RE:</label>
+                    <input type="text" class="form-control" id="re" name="re" placeholder="Digite o RE">
+                </div>
+
+                <div class="mb-3">
+                    <label for="fardo_virgem" class="form-label">Fardo Virgem: </label>
+                    <input type="number" step="0.01" class="form-control" id="fardo_virgem" name="fardo_virgem" placeholder="Ex: 12345">
+                </div>
+
+                <div class="mb-3">
+                    <label for="fardo_laminado" class="form-label">Fardo Laminado: </label>
+                    <input type="number" step="0.1" class="form-control" id="fardo_laminado" name="fardo_laminado" placeholder="Ex: 12345">
+                </div>
+
+                <div class="mb-3">
+                    <label for="reversao" class="form-label">Reversão: </label>
+                    <input type="number" step="0.1" class="form-control" id="reversao" name="reversao" placeholder="Ex: 12345">
+                </div>
+
+                <div class="mb-3">
+                    <label for="observacao" class="form-label">Observação:</label>
+                    <textarea class="form-control" id="observacao" name="observacao" rows="3" placeholder="Digite observações sobre o turno"></textarea>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="{% url 'fechamento_turno' %}" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

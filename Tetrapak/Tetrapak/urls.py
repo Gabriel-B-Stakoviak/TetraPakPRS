@@ -26,4 +26,6 @@ urlpatterns = [
     path('extrusoura/<int:pk>/fim/', ExtrusouraViewFim.as_view(), name='extrusoura_fim'),
     path('agua_extrusoura/', AguaExtrusouraList.as_view(), name='agua_extrusoura'),
     path('agua_extrusoura/new/', AguaExtrusouraCreate.as_view(), name='agua_extrusoura_new'),
+    path('fechamento_turno/', FechamentoTurnoPage.as_view(), name='fechamento_turno'),
+    path('fechamento_turno/new/', FechamentoTurnoCreate.as_view(), name='fechamento_turno_new'),
 ]

@@ -7,7 +7,6 @@ from datetime import datetime, time
 
 from .models import FechamentoTurno, Extrusoura, AguaExtrusoura
 
-
 class Home(TemplateView):
     template_name = 'prs_page/home.html'
 
@@ -70,7 +69,6 @@ class Home(TemplateView):
 
         return contagem
 
-
 class ExtrusouraList(ListView):
     template_name = 'prs_page/extrusoura.html'
     model = Extrusoura
@@ -79,7 +77,6 @@ class ExtrusouraList(ListView):
     def get_queryset(self):
         ano_atual = timezone.now().year
         return Extrusoura.objects.filter(data__year=ano_atual)
-
 
 class ExtrusouraCreate(CreateView):
     model = Extrusoura
@@ -106,14 +103,12 @@ class ExtrusouraCreate(CreateView):
         marcadores['data'] = datetime.now().strftime('%d/%m/%Y')
         return marcadores
 
-
 class ExtrusouraViewFim(View):
     def get(self, request, pk):
         extrusoura = get_object_or_404(Extrusoura, pk=pk)
         extrusoura.fim = datetime.now().strftime('%H:%M')
         extrusoura.save()
         return redirect('extrusoura')
-
 
 class AguaExtrusouraList(ListView):
     template_name = 'prs_page/agua_extrusoura.html'
@@ -124,13 +119,46 @@ class AguaExtrusouraList(ListView):
         ano_atual = timezone.now().year
         return AguaExtrusoura.objects.filter(data__year=ano_atual)
 
-
 class AguaExtrusouraCreate(CreateView):
     model = AguaExtrusoura
     template_name = 'prs_page/agua_extrusoura_form.html'
     fields = ['re', 'cloro', 'turbidez', 'observacao']
     success_url = reverse_lazy('agua_extrusoura')
 
+    def form_valid(self, form):
+        hora_atual = datetime.now().strftime('%H:%M')
+
+        if hora_atual >= time(6, 15).strftime("%H:%M") and hora_atual < time(14, 20).strftime("%H:%M"):
+            turno = 'A'
+        elif hora_atual >= time(14, 21).strftime("%H:%M") and hora_atual < time(22, 25).strftime("%H:%M"):
+            turno = 'B'
+        else:
+            turno = 'C'
+
+        form.instance.turno = turno
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        marcadores = super().get_context_data(**kwargs)
+        marcadores['horario'] = datetime.now().strftime('%H:%M')
+        marcadores['data'] = datetime.now().strftime('%d/%m/%Y')
+        return marcadores
+
+class FechamentoTurnoPage(ListView):
+    template_name = 'prs_page/fechamento_turno.html'
+    model=FechamentoTurno
+    context_object_name='fechamento_turno_list'
+
+    def get_queryset(self):
+        ano_atual = timezone.now().year
+        return FechamentoTurno.objects.filter(data__year=ano_atual)
+    
+class FechamentoTurnoCreate(CreateView):
+    model=FechamentoTurno
+    template_name = 'prs_page/fechamento_turno_form.html'
+    fields = ['re', 'fardo_virgem', 'fardo_laminado', 'reversao', 'observacao']
+    success_url = reverse_lazy('fechamento_turno')
+    
     def form_valid(self, form):
         hora_atual = datetime.now().strftime('%H:%M')
 

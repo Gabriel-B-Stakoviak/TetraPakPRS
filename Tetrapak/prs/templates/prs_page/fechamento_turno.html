@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}FECHAMENTO DE TURNO{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="fw-bold">FECHAMENTO DE TURNOS</h2>
+            <a class="btn btn-primary" href={% url "fechamento_turno_new" %}>
+                <i class="bi bi-plus-circle"></i> FECHAR TURNO
+            </a>
+        </div>
+
+        <div class="table-responsive shadow-sm rounded" style="max-width: 100%; overflow-x: auto; margin: auto; max-height: 550px">
+            <table class="table table-striped table-hover align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Data</th>
+                        <th scope="col">RE</th>
+                        <th scope="col">Turno</th>
+                        <th scope="col">Fardo Virgem</th>
+                        <th scope="col">Fardo Laminado</th>
+                        <th scope="col">Fardo Total</th>
+                        <th scope="col">Reversão</th>
+                        <th scope="col">Observação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for fechamento in fechamento_turno_list %}
+                        <tr>
+                            <td>{{fechamento.data|date:"d/m/Y"}}</td>
+                            <td>{{fechamento.re}}</td>
+                            <td>{{fechamento.turno}}</td>
+                            <td>{{fechamento.fardo_virgem}}</td>
+                            <td>{{fechamento.fardo_laminado}}</td>
+                            <td>{{fechamento.fardo_total}}</td>
+                            <td>{{fechamento.reversao}}</td>
+                            <td>{{fechamento.observacao}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}
+
