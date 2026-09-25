@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}EXTRUSOURA{% endblock title %}
+
+{% block content %}
+    <div class="container mt-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="fw-bold">PLANTA DE RESÍDUOS SÓLIDOS</h2>
+            <a class="btn btn-primary" href="{% url 'extrusoura_new' %}">
+                <i class="bi bi-plus-circle"></i> Novo Registro
+            </a>
+        </div>
+
+        <div class="table-responsive shadow-sm rounded" style="max-width: 100%; overflow-x: auto; margin: auto; max-height: 550px">
+            <table class="table table-striped table-hover align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">RE</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Turno</th>
+                        <th scope="col">Máquina Rodando</th>
+                        <th scope="col">Máquina Disponível</th>
+                        <th scope="col">Início</th>
+                        <th scope="col">Fim</th>
+                        <th scope="col">Detalhamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for extr in extrusoura_list %}
+                        <tr>
+                            <td>{{extr.re}}</td>
+                            <td>{{extr.data|date:"d/m/Y"}}</td>
+                            <td>{{extr.turno}}</td>
+                            <td>{{extr.maquina_rodando}}</td>
+                            <td>{{extr.maquina_disponivel}}</td>
+                            <td>{{extr.inicio|time:"H:i"}}</td>
+                            <td>
+                                {% if extr.fim == None %}
+                                    <a class="btn btn-success btn-sm" 
+                                    href="{% url 'extrusoura_fim' pk=extr.pk %}">✓</i>
+                                    </a>
+                                {% else %}
+                                    {{extr.fim|time:"H:i"}}
+                                {% endif %}
+                            </td>
+                            <td>{{extr.detalhamento}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

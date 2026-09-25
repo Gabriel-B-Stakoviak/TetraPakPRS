@@ -1,0 +1,66 @@
+# ==================================
+# Python
+# ==================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ==================================
+# Ambientes virtuais
+# ==================================
+.env
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# ==================================
+# Arquivos de build/distribuição
+# ==================================
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+.installed.cfg
+
+# ==================================
+# Django
+# ==================================
+*.log
+local_settings.py
+
+# Banco de dados local (SQLite)
+db.sqlite3
+db.sqlite3-journal
+
+# Arquivos coletados (comando collectstatic)
+staticfiles/
+
+# Arquivos de mídia (opcional — veja explicação abaixo)
+# media/
+
+# ==================================
+# IDEs e editores
+# ==================================
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Arquivos temporários de edição
+*.swp
+*.swo
+*~
+
+# ==================================
+# Sistema Operacional
+# ==================================
+.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

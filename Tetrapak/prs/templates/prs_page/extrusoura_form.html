@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}REGISTRAR EXTRUSOURA{% endblock title %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card shadow-lg p-4 rounded-3">
+            <h4 class="mb-3">Registro Água Extrusoura</h4>
+
+            <p><strong>Início:</strong> {{horario}}</p>
+            <p><strong>Data:</strong> {{data}}</p>
+
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="re" class="form-label">RE:</label>
+                    <input type="text" class="form-control" id="re" name="re" placeholder="Digite o RE">
+                </div>
+
+                <div class="mb-3">
+                    <label for="maquina_rodando" class="form-label">Maquina Rodando: </label>
+                    <input type="number" step="0.01" class="form-control" id="maquina_rodando" name="maquina_rodando" placeholder="Ex: 12345">
+                </div>
+
+                <div class="mb-3">
+                    <label for="maquina_disponivel" class="form-label">Maquina Disponivel</label>
+                    <input type="number" step="0.1" class="form-control" id="maquina_disponivel" name="maquina_disponivel" placeholder="Ex: 12345">
+                </div>
+
+                <div class="mb-3">
+                    <label for="detalhamento" class="form-label">Detalhamento:</label>
+                    <textarea class="form-control" id="detalhamento" name="detalhamento" rows="3" placeholder="Digite observações se necessário"></textarea>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="{% url 'extrusoura' %}" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content%}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}DASHBOARD{% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+  <!-- Cards de Resumo -->
+  <div class="row g-4 mb-5">
+    <!-- Turno A -->
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card h-100 shadow border-0 rounded-4">
+        <div class="card-body text-center bg-gradient bg-primary text-white rounded-4 p-4">
+          <h5 class="card-title fw-bold text-uppercase">Turno A</h5>
+          <hr class="border-light opacity-25">
+          <p class="mb-2 fs-5">Fardos</p>
+          <p class="fs-3 fw-bold">{{ turno_a_total|default:"0" }}</p>
+          <p class="mb-2 fs-5">Reversão</p>
+          <p class="fs-3 fw-bold">{{ reversao_a_total|default:"0" }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Turno B -->
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card h-100 shadow border-0 rounded-4">
+        <div class="card-body text-center bg-gradient bg-success text-white rounded-4 p-4">
+          <h5 class="card-title fw-bold text-uppercase">Turno B</h5>
+          <hr class="border-light opacity-25">
+          <p class="mb-2 fs-5">Fardos</p>
+          <p class="fs-3 fw-bold">{{ turno_b_total|default:"0" }}</p>
+          <p class="mb-2 fs-5">Reversão</p>
+          <p class="fs-3 fw-bold">{{ reversao_b_total|default:"0" }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Turno C -->
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card h-100 shadow border-0 rounded-4">
+        <div class="card-body text-center bg-gradient bg-warning text-dark rounded-4 p-4">
+          <h5 class="card-title fw-bold text-uppercase">Turno C</h5>
+          <hr class="border-dark opacity-25">
+          <p class="mb-2 fs-5">Fardos</p>
+          <p class="fs-3 fw-bold">{{ turno_c_total|default:"0" }}</p>
+          <p class="mb-2 fs-5">Reversão</p>
+          <p class="fs-3 fw-bold">{{ reversao_c_total|default:"0" }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Geral -->
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card h-100 shadow border-0 rounded-4">
+        <div class="card-body text-center bg-gradient bg-dark text-white rounded-4 p-4">
+          <h5 class="card-title fw-bold text-uppercase">Total Produção</h5>
+          <hr class="border-light opacity-25">
+          <p class="mb-2 fs-5">Fardos</p>
+          <p class="fs-3 fw-bold text-success">{{ total_geral|default:"0" }}</p>
+          <p class="mb-2 fs-5">Reversão</p>
+          <p class="fs-3 fw-bold text-danger">{{ total_reversao_geral|default:"0" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela Fardos -->
+  <div class="mt-5">
+    <h3 class="fw-bold text-center mb-4 text-uppercase">Resumo de Fardos por RE</h3>
+
+    <div class="table-responsive shadow rounded-4" style="max-height: 550px; overflow-y: auto;">
+      <table class="table table-hover align-middle text-center mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">RE</th>
+            <th scope="col">Reversão</th>
+            <th scope="col">Fardos Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in resumo_de_fardos %}
+          <tr>
+            <td class="fw-bold">{{ item.re }}</td>
+            <td class="fw-semibold text-danger">{{ item.total_reversao|default:"0" }}</td>
+            <td class="fw-semibold text-success">{{ item.total_fardos|default:"0" }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3" class="text-muted py-4">Nenhum dado disponível</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}

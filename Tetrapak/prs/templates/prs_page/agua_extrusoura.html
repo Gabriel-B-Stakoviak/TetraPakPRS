@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}MONITORAMENTO{% endblock title %}
+
+{% block content %}
+   <div class="container mt-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="fw-bold">RESERVATÓRIO DE ÁGUA EXTRUSOURA</h2>
+            <a class="btn btn-primary" href="{% url 'extrusoura_new' %}">
+                <i class="bi bi-plus-circle"></i> Novo Registro
+            </a>
+        </div>
+
+       <div class="table-responsive shadow-sm rounded" style="max-width: 100%; overflow-x: auto; margin: auto; max-height: 550px">
+        <table class="table table-striped table-hover align-middle text-center">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col" style="text-align : center">RE</th>
+                <th scope="col" style="text-align : center">Data</th>
+                <th scope="col" style="text-align : center">Horario</th>
+                <th scope="col" style="text-align : center">Turno</th>
+                <th scope="col" style="text-align : center">Cloro</th>
+                <th scope="col" style="text-align : center">Turbidez</th>
+                <th scope="col" style="text-align : center">Observação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for agua in agua_extrusoura_list %}
+                <tr>
+                    <td style="text-align : center">{{agua.re}}</td>
+                    <td style="text-align : center">{{agua.data | date:"d/m/Y"}}</td>
+                    <td style="text-align : center">{{agua.horario | time:"H:i"}}</td>
+                    <td style="text-align : center">{{agua.turno}}</td>
+                    <td style="text-align : center">{{agua.cloro}}</td>
+                    <td style="text-align : center">{{agua.turbidez}}</td>
+                    <td style="text-align : center">{{agua.observacao}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

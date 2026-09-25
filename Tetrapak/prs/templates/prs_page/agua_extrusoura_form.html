@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}REGISTRAR AGUA EXTRUSOURA{% endblock title %}
+
+{% block content %}
+    <div class="container mt-4">
+        <div class="card shadow-lg p-4 rounded-3">
+            <h4 class="mb-3">Registro Água Extrusoura</h4>
+
+            <p><strong>Início:</strong> {{horario}}</p>
+            <p><strong>Data:</strong> {{data}}</p>
+
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="re" class="form-label">RE:</label>
+                    <input type="text" class="form-control" id="re" name="re" placeholder="Digite o RE">
+                </div>
+
+                <div class="mb-3">
+                    <label for="cloro" class="form-label">Cloro (PPM):</label>
+                    <input type="number" step="0.01" class="form-control" id="cloro" name="cloro" placeholder="Ex: 2.5">
+                </div>
+
+                <div class="mb-3">
+                    <label for="turbidez" class="form-label">Turbidez (NTU):</label>
+                    <input type="number" step="0.1" class="form-control" id="turbidez" name="turbidez" placeholder="Ex: 3.0">
+                </div>
+
+                <div class="mb-3">
+                    <label for="observacao" class="form-label">Observação:</label>
+                    <textarea class="form-control" id="observacao" name="observacao" rows="3" placeholder="Digite observações se necessário"></textarea>
+                </div>
+
+                <div class="alert alert-info">
+                    <h6 class="mb-2"><i class="bi bi-info-circle"></i> Valores de Referência</h6>
+                    <ul class="mb-0">
+                        <li>Cloro Livre: <strong>0.1 ≤ CI ≤ 4.0 PPM</strong></li>
+                        <li>Turbidez: <strong>NTU ≤ 5.0</strong></li>
+                    </ul>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="{% url 'agua_extrusoura' %}" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock content%}
